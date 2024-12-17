@@ -1,1 +1,5 @@
 rootProject.name = 'cafe-search'
+include 'search-api'
+include 'common'
+include 'external'
+
