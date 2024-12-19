@@ -2,4 +2,6 @@ rootProject.name = 'cafe-search'
 include 'search-api'
 include 'common'
 include 'external'
+include 'external:naver-client'
+findProject(':external:naver-client')?.name = 'naver-client'
 
