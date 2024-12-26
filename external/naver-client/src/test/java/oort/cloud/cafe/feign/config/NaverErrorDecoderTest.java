@@ -3,15 +3,17 @@ package oort.cloud.cafe.feign.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.Request;
 import feign.Response;
+import oort.cloud.cafe.exception.ErrorType;
 import oort.cloud.cafe.exception.NaverApiException;
-import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpStatus;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class NaverErrorDecoderTest {
@@ -41,7 +43,7 @@ class NaverErrorDecoderTest {
     }
 
     @Test
-    void 네이버_예외_응답_Exception_타입확인(){
+    void 네이버_API_커스텀_예외_테스트(){
         //given
         ObjectMapper objectMapper = new ObjectMapper();
         NaverErrorDecoder naverErrorDecoder = new NaverErrorDecoder(objectMapper);
@@ -57,10 +59,15 @@ class NaverErrorDecoderTest {
                 .build();
 
         //then
-        assertThatThrownBy(
-                () -> {
-                    naverErrorDecoder.decode("GET", response);
-                }).isInstanceOf(NaverApiException.class);
+        NaverApiException exception = Assertions.assertThrows(
+                NaverApiException.class,
+                () -> naverErrorDecoder.decode("GET", response)
+        );
+
+        assertThat(exception.getErrorType()).isEqualTo(ErrorType.EXTERNAL_API_ERROR);
+        assertThat(exception.getErrorMessage()).isEqualTo("test");
+        assertThat(exception.getHttpStatus()).isEqualTo(HttpStatus.BAD_REQUEST);
+
     }
 
 }
