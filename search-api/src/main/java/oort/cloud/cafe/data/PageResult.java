@@ -8,7 +8,6 @@ import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class PageResult<T> {
     private int size;
     private int page;

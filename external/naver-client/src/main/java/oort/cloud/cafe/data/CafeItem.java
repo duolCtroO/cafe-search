@@ -11,4 +11,12 @@ public class CafeItem {
     private String description;
     private String cafename;
     private String cafeurl;
+
+    public CafeItem(String title, String link, String description, String cafename, String cafeurl) {
+        this.title = title;
+        this.link = link;
+        this.description = description;
+        this.cafename = cafename;
+        this.cafeurl = cafeurl;
+    }
 }
