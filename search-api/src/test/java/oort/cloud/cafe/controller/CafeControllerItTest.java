@@ -4,7 +4,7 @@ import oort.cloud.cafe.data.CafePost;
 import oort.cloud.cafe.data.CafeSearchRequest;
 import oort.cloud.cafe.data.PageResult;
 import oort.cloud.cafe.exception.ErrorType;
-import oort.cloud.cafe.service.CafeService;
+import oort.cloud.cafe.service.SearchQueryService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -12,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -31,7 +30,7 @@ public class CafeControllerItTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private CafeService cafeService;
+    private SearchQueryService cafeService;
 
     @Test
     void 정상적인_파라미터_테스트() throws Exception {
@@ -47,7 +46,7 @@ public class CafeControllerItTest {
         PageResult<CafePost> mockPageResult = new PageResult<>(size, page, total, mockPosts);
         CafeSearchRequest req = new CafeSearchRequest("계엄", 1, 2);
 
-        when(cafeService.searchContents(anyString(), anyInt(), anyInt())).thenReturn(mockPageResult);
+        when(cafeService.search(anyString(), anyInt(), anyInt())).thenReturn(mockPageResult);
         //when
         mockMvc.perform(
                         MockMvcRequestBuilders.get("/cafe")
@@ -77,7 +76,7 @@ public class CafeControllerItTest {
         PageResult<CafePost> mockPageResult = new PageResult<>(size, page, total, mockPosts);
         CafeSearchRequest req = new CafeSearchRequest("", 1, 2);
 
-        when(cafeService.searchContents(anyString(), anyInt(), anyInt())).thenReturn(mockPageResult);
+        when(cafeService.search(anyString(), anyInt(), anyInt())).thenReturn(mockPageResult);
         //when
         mockMvc.perform(
                         MockMvcRequestBuilders.get("/cafe")
@@ -90,4 +89,5 @@ public class CafeControllerItTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").value("query 파라미터는 필수 값 입니다."))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errorType").value(ErrorType.INVALID_PARAMETER.name()));
     }
+
 }

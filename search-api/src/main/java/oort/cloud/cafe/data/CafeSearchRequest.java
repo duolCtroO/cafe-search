@@ -1,9 +1,6 @@
 package oort.cloud.cafe.data;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Getter
@@ -18,11 +15,10 @@ public class CafeSearchRequest {
     @Min(value = 1, message = "size는 1이상 10000이하의 값입니다.")
     @Max(value = 10000, message = "size는 1이상 10000이하의 값입니다.")
     @NotNull(message = "size 파라미터는 필수 값 입니다.")
-    private int size;
+    private Integer size;
 
     @Min(value = 1, message = "page는 1이상 100이하의 값입니다.")
-//    @Max(value = 100, message = "page는 1이상 100이하의 값입니다.")
-    @Max(value = 100)
+    @Max(value = 100, message = "page는 1이상 100이하의 값입니다.")
     @NotNull(message = "page 파라미터는 필수 값 입니다.")
-    private int page;
+    private Integer page;
 }
