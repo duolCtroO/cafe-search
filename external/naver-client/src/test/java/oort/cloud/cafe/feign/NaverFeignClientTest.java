@@ -32,7 +32,7 @@ class NaverFeignClientTest {
         String query = "test";
 
         //when
-        CafeResponse testResponse = naverFeignClient.search(query, start, 999999999);
+        CafeResponse testResponse = naverFeignClient.search(query, start, 1);
 
         //then
         assertThat(testResponse.start()).isEqualTo(1);

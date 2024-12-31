@@ -1,5 +1,6 @@
 package oort.cloud.cafe.controller;
 
+import oort.cloud.cafe.config.GlobalExceptionHandler;
 import oort.cloud.cafe.data.CafePost;
 import oort.cloud.cafe.data.PageResult;
 import oort.cloud.cafe.service.CafeService;
@@ -81,6 +82,33 @@ class CafeControllerTest {
                                 """
                         )
                 );
+    }
+
+    @Test
+    void 잘못된_파라미터_예외처리_테스트() throws Exception {
+        //given
+        String query = "";
+        String size = "0";
+        String page = "0";
+
+        //when
+        mockMvc.perform(
+                        MockMvcRequestBuilders.get("/cafe")
+                                .param("query", query)
+                                .param("page", "1")
+                                .param("size", "2"))
+        //then
+                .andExpect(MockMvcResultMatchers.status().is4xxClientError())
+                .andExpect(MockMvcResultMatchers.content().json(
+                        """
+                        {
+                            "errordsa":2
+                            ,"page":1
+                        }
+                        """
+                ));
+
+
     }
 
 }
