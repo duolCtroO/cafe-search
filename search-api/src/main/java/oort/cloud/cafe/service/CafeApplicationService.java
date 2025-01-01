@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @Primary
@@ -20,7 +21,6 @@ import java.time.LocalDateTime;
 public class CafeApplicationService{
     private final SearchService cafeService;
     private final DailyStatsCommandService dailyStatsCommandService;
-
     private final DailyStatsQueryService dailyStatsQueryService;
 
     public PageResult<CafePost> search(String query, int size, int page){
@@ -32,6 +32,10 @@ public class CafeApplicationService{
 
     public StatsResponse findQueryCount(String query, LocalDate date){
         return dailyStatsQueryService.searchDailyStats(query, date);
+    }
+
+    public List<StatsResponse> findDailyTopQuery(){
+        return dailyStatsQueryService.searchDailyTopQuery();
     }
 
 

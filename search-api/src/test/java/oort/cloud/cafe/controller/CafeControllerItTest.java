@@ -4,21 +4,24 @@ import oort.cloud.cafe.data.CafePost;
 import oort.cloud.cafe.data.CafeSearchRequest;
 import oort.cloud.cafe.data.PageResult;
 import oort.cloud.cafe.exception.ErrorType;
+import oort.cloud.cafe.repository.DailyStatsRepository;
+import oort.cloud.cafe.service.CafeApplicationService;
 import oort.cloud.cafe.service.search.SearchQueryService;
 import org.junit.jupiter.api.Test;
+import org.mockito.stubbing.OngoingStubbing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 @ActiveProfiles("test")
@@ -30,7 +33,10 @@ public class CafeControllerItTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private SearchQueryService cafeService;
+    private CafeApplicationService cafeService;
+
+    @MockBean
+    private DailyStatsRepository dailyStatsRepository;
 
     @Test
     void 정상적인_파라미터_테스트() throws Exception {
@@ -88,6 +94,17 @@ public class CafeControllerItTest {
                 .andExpect(MockMvcResultMatchers.status().is4xxClientError())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").value("query 파라미터는 필수 값 입니다."))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.errorType").value(ErrorType.INVALID_PARAMETER.name()));
+    }
+
+    @Test
+    void TOP_쿼리_조회() throws Exception {
+        //when
+        mockMvc.perform(
+                        MockMvcRequestBuilders.get("/cafe/stats/top")
+                )
+                //then
+                .andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
+
     }
 
 }
