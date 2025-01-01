@@ -23,7 +23,6 @@ public class ApplicationRunner implements CommandLineRunner {
         DailyStats test2 = new DailyStats("test", LocalDateTime.now());
         DailyStats test3 = new DailyStats("test", LocalDateTime.now());
         DailyStats test4 = new DailyStats("test", LocalDateTime.now());
-        DailyStats test5 = new DailyStats("test", LocalDateTime.now());
 
         DailyStats dummy1 = new DailyStats("dummy", LocalDateTime.now());
         DailyStats dummy2 = new DailyStats("dummy", LocalDateTime.now());
@@ -32,7 +31,7 @@ public class ApplicationRunner implements CommandLineRunner {
         DailyStats dummy5 = new DailyStats("dummy", LocalDateTime.now());
 
         dailyStatsRepository.saveAll(List.of(
-                    test1, test2, test3, test4, test5,
+                    test1, test2, test3, test4,
                     dummy1, dummy2, dummy3, dummy4, dummy5
                 ));
     }

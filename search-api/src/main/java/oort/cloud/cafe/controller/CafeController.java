@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -34,5 +35,10 @@ public class CafeController {
                 @RequestParam(name = "date") LocalDate date
             ){
         return cafeService.findQueryCount(query, date);
+    }
+
+    @GetMapping("/stats/top")
+    public List<StatsResponse> findQueryTop(){
+        return cafeService.findDailyTopQuery();
     }
 }
