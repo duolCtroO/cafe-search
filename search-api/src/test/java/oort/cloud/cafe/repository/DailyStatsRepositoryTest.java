@@ -41,4 +41,30 @@ class DailyStatsRepositoryTest {
         Optional<DailyStats> saveData = dailyStatsRepository.findById(result.getId());
         Assertions.assertThat(saveData.get()).isEqualTo(dailyStats);
     }
+
+    @Test
+    void 쿼리_카운트_조회(){
+        //given
+        String query = "test";
+        LocalDateTime start = LocalDateTime.now().minusMinutes(10);
+        LocalDateTime end = LocalDateTime.now();
+
+        DailyStats test1 = new DailyStats(query, LocalDateTime.now().minusMinutes(11));
+        DailyStats test2 = new DailyStats(query, LocalDateTime.now().minusMinutes(4));
+        DailyStats test3 = new DailyStats(query, LocalDateTime.now().minusMinutes(3));
+        DailyStats test4 = new DailyStats(query, LocalDateTime.now().minusMinutes(2));
+        DailyStats test5 = new DailyStats(query, LocalDateTime.now().plusMinutes(1));
+
+        //when
+        dailyStatsRepository.save(test1);
+        dailyStatsRepository.save(test2);
+        dailyStatsRepository.save(test3);
+        dailyStatsRepository.save(test4);
+        dailyStatsRepository.save(test5);
+
+        long count = dailyStatsRepository.countByQueryAndEventDateTimeBetween(query, start, end);
+
+        //then
+        Assertions.assertThat(count).isEqualTo(3);
+    }
 }

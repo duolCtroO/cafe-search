@@ -1,4 +1,4 @@
-package oort.cloud.cafe.service;
+package oort.cloud.cafe.service.search;
 
 import lombok.RequiredArgsConstructor;
 import oort.cloud.cafe.data.CafePost;
@@ -8,9 +8,8 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class SearchQueryService implements SearchService{
+public class SearchQueryService implements SearchService {
     private final CafeRepository cafeRepository;
-
     @Override
     public PageResult<CafePost> search(String query, int size, int page) {
         return cafeRepository.searchContents(query, page, size);
