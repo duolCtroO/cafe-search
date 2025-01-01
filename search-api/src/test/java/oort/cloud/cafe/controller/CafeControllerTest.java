@@ -3,9 +3,6 @@ package oort.cloud.cafe.controller;
 import oort.cloud.cafe.data.CafePost;
 import oort.cloud.cafe.data.PageResult;
 import oort.cloud.cafe.service.CafeApplicationService;
-import oort.cloud.cafe.service.SearchQueryService;
-import oort.cloud.cafe.service.CafeService;
-import oort.cloud.cafe.service.SearchService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -22,7 +19,7 @@ import static org.mockito.Mockito.when;
 
 class CafeControllerTest {
     private MockMvc mockMvc;
-    private CafeService cafeService;
+    private CafeApplicationService cafeService;
     private CafeController cafeController;
 
     @BeforeEach

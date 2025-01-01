@@ -4,7 +4,7 @@ import oort.cloud.cafe.data.CafePost;
 import oort.cloud.cafe.data.CafeSearchRequest;
 import oort.cloud.cafe.data.PageResult;
 import oort.cloud.cafe.exception.ErrorType;
-import oort.cloud.cafe.service.SearchQueryService;
+import oort.cloud.cafe.service.search.SearchQueryService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

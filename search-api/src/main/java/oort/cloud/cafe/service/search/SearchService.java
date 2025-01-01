@@ -1,4 +1,4 @@
-package oort.cloud.cafe.service;
+package oort.cloud.cafe.service.search;
 
 import oort.cloud.cafe.data.CafePost;
 import oort.cloud.cafe.data.PageResult;

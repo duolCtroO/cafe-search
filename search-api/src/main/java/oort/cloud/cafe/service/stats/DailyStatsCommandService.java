@@ -1,4 +1,4 @@
-package oort.cloud.cafe.service;
+package oort.cloud.cafe.service.stats;
 
 import lombok.RequiredArgsConstructor;
 import oort.cloud.cafe.entity.DailyStats;
